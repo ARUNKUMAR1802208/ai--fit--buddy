@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}FitBuddy — Admin Login{% endblock %}
+{% block content %}
+<div class="center-card card">
+  <span class="eyebrow">ADMIN</span>
+  <h1>Dashboard login</h1>
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  <form action="/admin/login" method="post">
+    <label>Admin password<input type="password" name="password" required></label>
+    <button type="submit">Open Dashboard</button>
+  </form>
+</div>
+{% endblock %}

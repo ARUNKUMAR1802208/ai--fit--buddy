@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}FitBuddy — Create Your Plan{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <span class="eyebrow">AI FITNESS PLANNER</span>
+    <h1>Build a 7-day routine that fits your goal.</h1>
+    <p>Enter your basic profile and preferred intensity. FitBuddy generates a structured workout plan plus a practical nutrition/recovery tip.</p>
+  </div>
+  <div class="card form-card">
+    <form action="/generate-workout" method="post">
+      <div class="grid two">
+        <label>Name<input name="name" required minlength="2" maxlength="120" placeholder="Your name"></label>
+        <label>User ID<input name="user_id" required pattern="[A-Za-z0-9_-]+" placeholder="e.g. user001"></label>
+      </div>
+      <div class="grid two">
+        <label>Age<input type="number" name="age" min="13" max="100" required></label>
+        <label>Weight (kg)<input type="number" name="weight" min="25" max="400" step="0.1" required></label>
+      </div>
+      <div class="grid two">
+        <label>Fitness goal
+          <select name="goal" required>
+            <option value="weight loss">Weight loss</option>
+            <option value="muscle gain">Muscle gain</option>
+            <option value="general wellness">General wellness</option>
+            <option value="flexibility">Flexibility</option>
+          </select>
+        </label>
+        <label>Workout intensity
+          <select name="intensity" required>
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+        </label>
+      </div>
+      <label>Experience level
+        <select name="experience_level">
+          <option value="beginner" selected>Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      </label>
+      <button type="submit">Generate 7-Day Plan →</button>
+    </form>
+  </div>
+</section>
+<section class="info-grid">
+  <article><strong>7 days</strong><span>Structured daily schedule</span></article>
+  <article><strong>AI feedback</strong><span>Refine your plan later</span></article>
+  <article><strong>Nutrition</strong><span>Goal-aligned recovery tips</span></article>
+</section>
+{% endblock %}

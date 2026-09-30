@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}FitBuddy{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/">FitBuddy</a>
+  <nav>
+    <a href="/">Create Plan</a>
+    <a href="/admin">Admin</a>
+    <a href="/docs">API Docs</a>
+  </nav>
+</header>
+<main class="container">
+{% block content %}{% endblock %}
+</main>
+<footer>FitBuddy • AI-assisted wellness planning • Not medical advice</footer>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}FitBuddy — Admin Dashboard{% endblock %}
+{% block content %}
+<div class="page-head">
+  <span class="eyebrow">ADMIN DASHBOARD</span>
+  <h1>Users and plans</h1>
+  <p>{{ users|length }} registered profile(s).</p>
+  <form action="/admin/logout" method="post"><button class="secondary" type="submit">Log out</button></form>
+</div>
+{% if not users %}
+<div class="card"><p>No users yet. Create a plan from the home page.</p></div>
+{% endif %}
+{% for user in users %}
+<article class="card admin-user">
+  <div class="admin-header">
+    <div><h2>{{ user.name }}</h2><p>{{ user.user_id }} · {{ user.age }} yrs · {{ user.weight }} kg · {{ user.goal }} · {{ user.intensity }}</p></div>
+    <form action="/admin/delete/{{ user.user_id }}" method="post" onsubmit="return confirm('Delete this user and all saved plans?')">
+      <button class="danger" type="submit">Delete</button>
+    </form>
+  </div>
+  {% for plan in user.plans %}
+  <details>
+    <summary>Plan #{{ plan.id }} — {{ plan.created_at }}</summary>
+    <h3>Original plan</h3><pre>{{ plan.original_plan }}</pre>
+    {% if plan.updated_plan %}<h3>Updated plan</h3><pre>{{ plan.updated_plan }}</pre>{% endif %}
+    {% if plan.feedback %}<h3>Feedback</h3><p>{{ plan.feedback }}</p>{% endif %}
+    <h3>Nutrition tip</h3><pre>{{ plan.nutrition_tip }}</pre>
+  </details>
+  {% endfor %}
+</article>
+{% endfor %}
+{% endblock %}

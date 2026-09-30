@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}FitBuddy — Your Plan{% endblock %}
+{% block content %}
+<section class="page-head">
+  <span class="eyebrow">YOUR PERSONALIZED PLAN</span>
+  <h1>{{ plan.title }}</h1>
+  <p>{{ plan.summary }}</p>
+  {% if message %}<div class="success">{{ message }}</div>{% endif %}
+</section>
+
+<div class="profile-strip">
+  <span><b>{{ user.name }}</b> · {{ user.user_id }}</span>
+  <span>{{ user.age }} yrs · {{ user.weight }} kg</span>
+  <span>{{ user.goal|title }} · {{ user.intensity|title }}</span>
+</div>
+
+<section class="days">
+{% for day in plan.days %}
+  <article class="card day">
+    <div class="day-title"><span>{{ day.day }}</span><h2>{{ day.focus }}</h2></div>
+    <p><b>Warm-up:</b> {{ day.warmup }}</p>
+    <div class="exercise-list">
+      {% for exercise in day.exercises %}
+      <div class="exercise">
+        <strong>{{ exercise.name }}</strong>
+        <span>{{ exercise.sets }} sets · {{ exercise.reps_or_duration }} · Rest {{ exercise.rest }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    <p><b>Cooldown:</b> {{ day.cooldown }}</p>
+  </article>
+{% endfor %}
+</section>
+
+<aside class="card tip">
+  <span class="eyebrow">NUTRITION / RECOVERY TIP</span>
+  <p><b>{{ nutrition_tip.tip }}</b></p>
+  <p>{{ nutrition_tip.recovery_note }}</p>
+</aside>
+
+<section class="card feedback">
+  <span class="eyebrow">REFINE YOUR PLAN</span>
+  <h2>Tell FitBuddy what you want changed</h2>
+  <form action="/submit-feedback" method="post">
+    <input type="hidden" name="user_id" value="{{ user.user_id }}">
+    <textarea name="feedback" required maxlength="2000" placeholder="Example: add more cardio, reduce high-impact exercises, include another rest day..."></textarea>
+    <button type="submit">Update Plan with AI →</button>
+  </form>
+</section>
+
+<p class="safety"><b>Safety:</b> {{ plan.safety_note }} This application is not a substitute for professional medical advice.</p>
+{% endblock %}
